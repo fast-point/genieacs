@@ -30,6 +30,7 @@ import {
   Expression,
 } from "./types";
 import Path from "./common/path";
+import { publishTask } from "./kafka";
 
 export let tasksCollection: Collection,
   devicesCollection: Collection,
@@ -694,6 +695,9 @@ export async function clearTasks(
   await tasksCollection.deleteMany({
     _id: { $in: taskIds.map((id) => new ObjectID(id)) },
   });
+  taskIds.forEach(taskId => {
+    publishTask({"task": "tasks_delete", '_id' : taskId, 'complete': true})
+  })
 }
 
 export async function getOperations(

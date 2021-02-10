@@ -59,6 +59,14 @@ The UI has plenty of configuration options. When you open GenieACS's UI in a
 browser you'll be greeted with a database initialization wizard to help you
 populate some initial configuration.
 
+### send tasks addition/deletion to kafka
+
+To send task addition and deletion to kafka, some environment variables has to be set:
+
+- TOPIC_NAME: name of kafka topic where messages will be published
+- CLIENT_ID: kafka client id
+- KAFKA_BROKERS: kafka brokers urls (separated with a comma)
+
 Visit [docs.genieacs.com](https://docs.genieacs.com) for more documentation and
 a complete installation guide for production deployments.
 

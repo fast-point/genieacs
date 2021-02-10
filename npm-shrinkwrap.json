@@ -392,6 +392,15 @@
         "@types/node": "*"
       }
     },
+    "@types/kafkajs": {
+      "version": "1.9.0",
+      "resolved": "https://registry.npmjs.org/@types/kafkajs/-/kafkajs-1.9.0.tgz",
+      "integrity": "sha512-R9VDNbiw+vNfxWjjFHUrLMF/Dfc7asGXzKtYUwI4FaT24Chf5ZNkfvce54p4dkLMxPcsrEsVazAK0Jp2ib4Zxw==",
+      "dev": true,
+      "requires": {
+        "kafkajs": "*"
+      }
+    },
     "@types/keygrip": {
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/@types/keygrip/-/keygrip-1.0.2.tgz",
@@ -3371,6 +3380,11 @@
         "jwa": "^1.4.1",
         "safe-buffer": "^5.0.1"
       }
+    },
+    "kafkajs": {
+      "version": "1.15.0",
+      "resolved": "https://registry.npmjs.org/kafkajs/-/kafkajs-1.15.0.tgz",
+      "integrity": "sha512-yjPyEnQCkPxAuQLIJnY5dI+xnmmgXmhuOQ1GVxClG5KTOV/rJcW1qA3UfvyEJKTp/RTSqQnUR3HJsKFvHyTpNg=="
     },
     "keygrip": {
       "version": "1.1.0",

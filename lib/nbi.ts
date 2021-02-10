@@ -30,6 +30,7 @@ import * as cache from "./cache";
 import { version as VERSION } from "../package.json";
 import { ping } from "./ping";
 import * as logger from "./logger";
+import { publishTask } from "./kafka";
 
 const DEVICE_TASKS_REGEX = /^\/devices\/([a-zA-Z0-9\-_%]+)\/tasks\/?$/;
 const TASKS_REGEX = /^\/tasks\/([a-zA-Z0-9\-_%]+)(\/[a-zA-Z_]*)?$/;
@@ -557,6 +558,8 @@ export function listener(
                 (err) => {
                   if (err) return void throwError(err, response);
 
+                  publishTask({"task": "tasks_delete", '_id' : taskId, 'complete': false})
+
                   collections.faults.deleteOne(
                     { _id: `${deviceId}:task_${taskId}` },
                     (err) => {
@@ -590,6 +593,8 @@ export function listener(
             { projection: { device: 1 } },
             (err, task) => {
               if (err) return void throwError(err, response);
+
+              publishTask({"task": "tasks_update", '_id' : taskId})
 
               const deviceId = task.device;
               collections.faults.deleteOne(

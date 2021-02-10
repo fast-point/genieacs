@@ -33,6 +33,7 @@ import {
 import { Expression, Task } from "./types";
 import { flattenDevice } from "./mongodb-functions";
 import { evaluate } from "./common/expression";
+import { publishTask } from "./kafka"
 
 export async function connectionRequest(
   deviceId: string,
@@ -312,9 +313,11 @@ export async function insertTasks(tasks: any[]): Promise<Task[]> {
         device: task.device,
         uniqueKey: task.uniqueKey,
       });
+      publishTask({"task": "tasks_delete", '_id' : task.uniqueKey, 'complete': false})
     }
   }
   await db.tasksCollection.insertMany(tasks);
+  publishTask({"task": "tasks_insert", tasks})
   return tasks;
 }
 
