@@ -15,6 +15,10 @@ if(brokersEnvironmentValue && topicName && clientId){
     //TODO: check urls and ports between 0-65536
     isKafkaConfigured = true
 }
+logger.info({"kafka": "init kafka"})
+logger.info({"isKafkaConfigured": isKafkaConfigured})
+logger.info({"client_id": clientId})
+logger.info({"brokers": brokers})
 
 const kafka = new Kafka({
     clientId: clientId,
@@ -24,9 +28,11 @@ const kafka = new Kafka({
 const producer = kafka.producer()
 
 export const publishTask = async (payload: object) => {
+    logger.info({"kafka": "publishTaskRequest"})
     if(!isKafkaConfigured){
         return undefined
     }
+    logger.info({"kafka": "publishTask"})
 
     const { kafkaProducerStatus, kafkaProducerResult } = await run(
         topicName,
@@ -42,6 +48,7 @@ export const publishTask = async (payload: object) => {
 const run = async (topic: string, payload: object) => {
     // Producing
     try {
+        logger.info({"kafka": JSON.stringify(payload)})
         const kafkaPayload = [
             {
                 key: null,
